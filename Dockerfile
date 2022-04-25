@@ -11,7 +11,7 @@ RUN go build -buildvcs=false  -o /usr/local/bin/app ./...
 
 EXPOSE 8080
 
-CMD ["app"]
+CMD ["./app"]
 
 
 #FROM golang:1.18.1 AS builder
