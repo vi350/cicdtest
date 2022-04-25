@@ -1,17 +1,18 @@
 FROM golang:1.18.1-alpine3.15
 
-WORKDIR /usr/src/app
+RUN mkdir /app
+WORKDIR /app
 
 # pre-copy/cache go.mod for pre-downloading dependencies and only redownloading them in subsequent builds if they change
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -v -o /usr/local/bin/app ./...
+RUN go build -buildvcs=false -o ./appbin ./...
 
 EXPOSE 8080
 
-CMD ["./app"]
+CMD ["./appbin"]
 
 
 #FROM golang:1.18.1 AS builder
