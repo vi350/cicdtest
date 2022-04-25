@@ -1,0 +1,35 @@
+name: Go
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3.1.0
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [ lint ]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18.1
+      - name: Build
+        run: |
+          export GO111MODULE=on
+          go mod download
+          go mod verify
+          GOOS=linux GOARCH=amd64 go build -v
+      - name: Build the Docker image
+        run: docker build . --tag cicdtest:$(date +%s)
+
+#      - name: Test
+#        run: go test -v ./...
