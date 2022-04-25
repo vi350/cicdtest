@@ -66,5 +66,5 @@ jobs:
           script: |
             cd ${{ secrets.PATHTODIR }}
             git pull origin master
-            docker build . --tag cicdtest
+            docker run --rm -it $(docker build -q .)
             docker rmi $(docker images -f dangling=true -q)
