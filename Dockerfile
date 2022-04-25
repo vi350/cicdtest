@@ -9,4 +9,6 @@ RUN go mod download && go mod verify
 COPY . .
 RUN go build -buildvcs=false  -o /usr/local/bin/app ./...
 
+EXPOSE 8080
+
 CMD ["app"]
