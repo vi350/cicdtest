@@ -28,8 +28,8 @@ jobs:
           go mod download
           go mod verify
           GOOS=linux GOARCH=amd64 go build -v
-      - name: Build the Docker image
-        run: docker build . --tag cicdtest:$(date +%s)
+#      - name: Build the Docker image
+#        run: docker build . --tag cicdtest:$(date +%s)
 
 #      - name: Test
 #        run: go test -v ./...
