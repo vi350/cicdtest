@@ -1,9 +1,11 @@
 package main
 
 import (
+	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
 )
 
 func main() {
@@ -11,6 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	domain := os.Getenv("DOMAIN")
 
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
@@ -18,8 +21,9 @@ func main() {
 			"message": "ci cd with docker",
 		})
 	})
-	err = r.Run(":8080")
-	if err != nil {
-		log.Fatal()
-	}
+	log.Fatal(autotls.Run(r, domain))
+	//err = r.Run(":8080")
+	//if err != nil {
+	//	log.Fatal()
+	//}
 }
