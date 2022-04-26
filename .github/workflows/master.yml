@@ -66,5 +66,6 @@ jobs:
           script: |
             cd ${{ secrets.PATHTODIR }}
             git pull origin master
-            docker run -p 80:8080 --rm -it $(docker build -q .)
+            docker stop $(docker ps -a -q)
+            docker run -d -p 443:443 --rm -it $(docker build -q .)
             docker rmi $(docker images -f dangling=true -q)

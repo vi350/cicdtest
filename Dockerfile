@@ -8,11 +8,11 @@ COPY go.mod go.sum ./
 RUN go mod download && go mod verify
 
 COPY . .
-RUN go build -buildvcs=false -o ./appbin ./...
+RUN go build -buildvcs=false -o ./appbinary ./...
 
 EXPOSE 8080
 
-CMD ["./appbin"]
+CMD ["./appbinary"]
 
 
 #FROM golang:1.18.1 AS builder
