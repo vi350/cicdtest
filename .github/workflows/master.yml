@@ -68,4 +68,4 @@ jobs:
             git pull origin master
             docker stop $(docker ps -a -q)
             docker rmi $(docker images -f dangling=true -q)
-            docker run -d -p 443:443 --rm -it $(docker build -q .)
+            docker run -d -p 8080:8080 --rm -it $(docker build -q .)
