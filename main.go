@@ -15,7 +15,11 @@ func main() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "test",
+			"message":      "test",
+			"someint":      673945,
+			"boolean":      false,
+			"testArray":    []int{1, 2, 3, 4, 5},
+			"innerObjects": gin.H{"element": "value"},
 		})
 	})
 	err = r.Run(":8080")
